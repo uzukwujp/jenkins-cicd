@@ -26,5 +26,12 @@ pipeline {
                 sh 'terraform apply -auto-approve'
             }
         }
+
+        stage("update ansible inventory file"){
+            steps {
+                sh 'chmod +x update_inventory.sh'
+                sh './update_inventory.sh'
+            }
+        }
     }
 }

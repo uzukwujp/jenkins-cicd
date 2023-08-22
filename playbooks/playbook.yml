@@ -1,0 +1,29 @@
+
+## install nodejs
+
+- name: Install Node.js
+  hosts: your_target_servers
+  become: yes  
+
+  tasks:
+    - name: Update apt cache (for Ubuntu/Debian)
+      apt:
+        update_cache: yes
+      when: ansible_os_family == 'Debian'
+
+    - name: Install Node.js and npm (for Ubuntu/Debian)
+      apt:
+        name: ['nodejs', 'npm']
+        state: present
+      when: ansible_os_family == 'Debian'
+## copy server.js file
+
+    - name: Copy file to remote server
+      copy:
+        src: /path/to/local/file.txt  # Replace with the path to your local file
+        dest: /path/on/remote/server/
+## start the server
+    - name: Run node server.js
+      command: node /path/to/your/server.js
+
+
