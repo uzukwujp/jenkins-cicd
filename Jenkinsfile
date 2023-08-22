@@ -38,7 +38,7 @@ pipeline {
 
         stage("run the ansible playbook"){
             steps {
-                sh 'export ANSIBLE_CONFIG=playbooks/ansible.cfg'
+                sh 'export ANSIBLE_HOST_KEY_CHECKING=False'
                 sh 'ansible-playbook -i playbooks/inventory.yml -vvv --private-key=$ANSIBLE_PRIVATE_KEY playbooks/playbook.yml'
             }
         }
