@@ -4,6 +4,8 @@ pipeline {
     environment {
         AWS_ACCESS_KEY_ID = "${key}"
         AWS_SECRET_ACCESS_KEY = "${secret}"
+        ANSIBLE_PRIVATE_KEY=credentials('private-key')
+
     }
 
     stages {
@@ -31,6 +33,12 @@ pipeline {
             steps {
                 sh 'chmod +x update_inventory.sh'
                 sh './update_inventory.sh'
+            }
+        }
+
+        stage("run the ansible playbook"){
+            steps {
+                sh 'ansible-playbook -i playbooks/inventory.yml --private-key=$ANSIBLE_PRIVATE_KEY playbooks/playbook.yml'
             }
         }
     }

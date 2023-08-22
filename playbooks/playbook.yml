@@ -2,7 +2,7 @@
 ## install nodejs
 
 - name: Install Node.js
-  hosts: your_target_servers
+  hosts: webservers
   become: yes  
 
   tasks:
@@ -20,10 +20,10 @@
 
     - name: Copy file to remote server
       copy:
-        src: /path/to/local/file.txt  # Replace with the path to your local file
-        dest: /path/on/remote/server/
+        src: server.js  # Replace with the path to your local file
+        dest: server.js
 ## start the server
     - name: Run node server.js
-      command: node /path/to/your/server.js
+      command: node server.js
 
 
