@@ -14,4 +14,4 @@ PUBLIC_IP=$(aws ec2 describe-instances --instance-ids "$INSTANCE_ID" --query "Re
 
 echo $PUBLIC_IP
 
-sed -i '2s/.*/ "${PUBLIC_IP}" ansible_ssh_user=ubuntu/' playbooks/inventory.yml
+sed -i "2s|.*|$PUBLIC_IP ansible_ssh_user=ubuntu|" playbooks/inventory.yml
