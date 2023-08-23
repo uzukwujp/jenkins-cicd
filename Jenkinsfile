@@ -38,8 +38,9 @@ pipeline {
 
         stage("run the ansible playbook"){
             steps {
+                sh'ssh-keygen -f "/home/ubuntu/.ssh/known_hosts" -R 54.197.8.155'
                 sh 'export ANSIBLE_HOST_KEY_CHECKING=False'
-                sh 'ansible-playbook -i playbooks/inventory.yml -vvv --private-key=$ANSIBLE_PRIVATE_KEY playbooks/playbook.yml'
+                sh 'ansible-playbook -i playbooks/inventory.yml -vvvv --private-key=$ANSIBLE_PRIVATE_KEY playbooks/playbook.yml'
             }
         }
     }
