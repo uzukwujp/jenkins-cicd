@@ -4,8 +4,6 @@ pipeline {
     environment {
         AWS_ACCESS_KEY_ID = "${key}"
         AWS_SECRET_ACCESS_KEY = "${secret}"
-        ANSIBLE_PRIVATE_KEY=credentials('private-key')
-
     }
 
     stages {
@@ -39,8 +37,8 @@ pipeline {
         stage("run the ansible playbook"){
             steps {
             
-                sh 'export ANSIBLE_HOST_KEY_CHECKING=False'
-                sh 'ansible-playbook -i playbooks/inventory.yml -vvvv --private-key=$ANSIBLE_PRIVATE_KEY playbooks/playbook.yml'
+                sh 'export ANSIBLE_CONFIG=./playbooks/ansible.cfg'
+                sh 'ansible-playbook -i playbooks/inventory.yml -vvvv playbooks/playbook.yml'
             }
         }
     }
